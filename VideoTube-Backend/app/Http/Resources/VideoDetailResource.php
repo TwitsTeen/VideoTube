@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
-class VideoResource extends JsonResource
+class VideoDetailResource extends JsonResource
 {
+    
     /**
      * Transform the resource into an array.
      *
@@ -19,10 +20,17 @@ class VideoResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'description' => $this->description,
             'thumbnail_url' => $this->thumbnail_url,
+            'video_url' => $this->video_url,
             'view_count' => $this->view_count,
             'user_id' => $this->user_id,
             'user_name' => User::where('id', $this->user_id)->value('name'),
+            'auth' => $this->authUser ? [
+                'id' => $this->authUser->id,
+                'name' => $this->authUser->name,
+            ] : null,
+            'likes_count' => $this->likes()->count(),
             'created_at' => $this->created_at,
         ];
     }

@@ -27,11 +27,13 @@ export const fetchVideos = async ({
 };
 
 export const fetchVideoById = async (id: string) => {
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+
   const response = await fetch(`${apiUrl}/videos/${id}`, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
   });
 
   if (!response.ok) {
@@ -40,6 +42,6 @@ export const fetchVideoById = async (id: string) => {
   }
 
   const result = await response.json();
-
+  console.log(result.data);
   return result.data;
 };

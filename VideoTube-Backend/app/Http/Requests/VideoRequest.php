@@ -24,10 +24,8 @@ class VideoRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            //'thumbnail' => 'required|file',
-            //'video' => 'required|file',
-            //'thumbnail' => 'required|image|mimetypes:image/jpeg,image/png', // 2MB max
-            //'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/quicktime', // 500MB max
+            'thumbnail' => 'required|image|mimetypes:image/jpeg,image/png', // 2MB max
+            'video' => 'required|file|mimetypes:video/mp4,video/mpeg,video/quicktime', // 500MB max
         ];
     }
 }

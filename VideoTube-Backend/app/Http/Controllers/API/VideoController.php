@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\VideoRequest;
+use App\Http\Resources\VideoDetailResource;
 use App\Http\Resources\VideoResource;
 use App\Models\Video;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -54,11 +56,11 @@ class VideoController extends BaseController
         }
     }
 
-    public function show(int $id)
+    public function show(Request $request, int $id)
     {
         $video = Video::find($id);
         $video->increment('view_count');
-        return $this->sendResponse(new VideoResource($video), 'Video retrieved successfully.');
+        return $this->sendResponse(new VideoDetailResource($video), 'Video retrieved successfully.');
     }
 
     public function update(VideoRequest $request, Video $video)
@@ -94,5 +96,30 @@ class VideoController extends BaseController
         } catch (\Exception $e) {
             return $this->sendError('Failed to delete video.', $e->getMessage());
         }
+    }
+
+    public function like(Request $request, int $id)
+    {
+        Log::info("--- Like Method Start ---");
+        $video = Video::find($id);
+        if (!$video) {
+            return $this->sendError('Video not found.');
+        }
+
+        // Check if the user has already liked the video
+        if ($video->likes()->where('user_id', auth()->id())->exists()) {
+            // Delete the like
+            $video->likes()->where('user_id', auth()->id())->delete();
+
+            return $this->sendResponse([], 'Like removed successfully.');
+        }
+
+        // Create a new like
+        $video->likes()->create([
+            'user_id' => auth()->id(),
+            'video_id' => $video->id,
+        ]);
+
+        return $this->sendResponse([], 'Video liked successfully.');
     }
 }

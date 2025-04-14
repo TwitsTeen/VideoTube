@@ -1,25 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   ScrollView,
   View,
   Text,
   ActivityIndicator,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import { useLocalSearchParams } from "expo-router";
-import { Video as VideoType } from "@/interfaces/interfaces";
+import { VideoDetails as VideoType } from "@/interfaces/interfaces";
 import useFetch from "@/services/useFetch";
 import { fetchVideoById } from "@/services/fetchVideo";
+import { AuthContext } from "@/providers/AuthProvider";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { likeVideo } from "@/services/interactions";
 
 const Watch = () => {
   const { id } = useLocalSearchParams();
   const [videoSource, setVideoSource] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const { userToken } = useContext(AuthContext);
 
-  const { data: video, loading } = useFetch<VideoType>(async () =>
-    fetchVideoById(id as string)
-  );
+  const {
+    data: video,
+    loading,
+    refetch,
+  } = useFetch<VideoType>(async () => fetchVideoById(id as string));
 
   useEffect(() => {
     if (video && video.video_url) {
@@ -32,6 +39,18 @@ const Watch = () => {
       setVideoSource(constructedVideoUrl);
     }
   }, [video]);
+
+  const handleLike = async () => {
+    if (!userToken) {
+      console.log("You need to be logged in to like a video.");
+      return;
+    }
+    if (!video) {
+      return;
+    }
+    await likeVideo(video.id, userToken);
+    refetch(); // May be kind of heavy to update the video data again just to update the likes
+  };
 
   const [status, setStatus] = useState({});
 
@@ -83,6 +102,16 @@ const Watch = () => {
         <View className="p-4">
           <Text className="text-white text-lg font-bold">{video.title}</Text>
           <Text className="text-gray-400 text-sm">{video.user_name}</Text>
+          <View className="flex-row items-center mt-2 gap-2 ">
+            <Text className="text-gray-400">{video.likes_count}</Text>
+            {userToken ? (
+              <TouchableOpacity onPress={handleLike}>
+                <AntDesign name={"like1"} size={24} color="white" />
+              </TouchableOpacity>
+            ) : (
+              <AntDesign name={"like1"} size={24} color="white" />
+            )}
+          </View>
           <Text className="text-gray-400 text-sm mt-1">
             {video.view_count.toLocaleString()} views ·{" "}
             {new Date(video.created_at).toLocaleDateString()}

@@ -15,9 +15,10 @@ Route::controller(AuthController::class)->group(function(){
     Route::middleware('auth:sanctum')->get('me', 'me');
 });
 
-Route::apiResource('videos', VideoController::class)->only(['index', 'show', 'update']);
+Route::apiResource('videos', VideoController::class)->only(['index', 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('like/{video}', [VideoController::class, 'like'])->name('videos.like');
     Route::post('videos', [VideoController::class, 'store'])->name('videos.store');
     Route::delete('videos/{video}', [VideoController::class, 'destroy'])->name('videos.destroy');
 });
