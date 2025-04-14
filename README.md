@@ -10,6 +10,13 @@ VideoTube is a personal project aimed at creating a video-sharing platform where
 - Search videos.
 - Responsive design for desktop and mobile devices.
 
+## Yet to be implemented
+
+- Likes
+- Comments
+- Subscriptions
+- Channels
+
 ## Installation
 
 1. Clone the repository:
