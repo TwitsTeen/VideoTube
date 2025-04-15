@@ -31,6 +31,7 @@ const Watch = () => {
   useEffect(() => {
     if (video && video.video_url) {
       const baseUrl = process.env.EXPO_PUBLIC_BASE_API_URL?.split("/api")[0];
+
       if (!baseUrl) {
         setError("Base URL is not defined in environment variables.");
         return;

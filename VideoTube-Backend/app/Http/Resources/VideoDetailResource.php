@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class VideoDetailResource extends JsonResource
 {
-    
+
     /**
      * Transform the resource into an array.
      *
@@ -26,10 +26,7 @@ class VideoDetailResource extends JsonResource
             'view_count' => $this->view_count,
             'user_id' => $this->user_id,
             'user_name' => User::where('id', $this->user_id)->value('name'),
-            'auth' => $this->authUser ? [
-                'id' => $this->authUser->id,
-                'name' => $this->authUser->name,
-            ] : null,
+
             'likes_count' => $this->likes()->count(),
             'created_at' => $this->created_at,
         ];

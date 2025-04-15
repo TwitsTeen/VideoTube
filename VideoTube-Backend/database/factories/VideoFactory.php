@@ -20,7 +20,7 @@ class VideoFactory extends Factory
             'title' => fake()->sentence(),
             'description' => fake()->paragraph(),
             'thumbnail_url' => fake()->imageUrl(),
-            'video_url' => fake()->url(),
+            'video_url' => "videos/demo.mp4", // You can put a demo.mp4 file in the public folder
             'view_count' => fake()->numberBetween(0, 10000),
             'user_id' => \App\Models\User::factory(),
         ];
