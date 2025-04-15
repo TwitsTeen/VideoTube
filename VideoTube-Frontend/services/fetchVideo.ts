@@ -5,13 +5,15 @@ const apiUrl = process.env.EXPO_PUBLIC_BASE_API_URL;
 export const fetchVideos = async ({
   query,
   page = 1,
+  sort = "latest",
 }: {
   query: string;
   page?: number;
+  sort?: string;
 }) => {
   const endpoint = query
-    ? `/videos?title=${query}&page=${page}`
-    : `/videos?page=${page}`;
+    ? `/videos?title=${query}&page=${page}&sort=${sort}`
+    : `/videos?page=${page}&sort=${sort}`;
   const response = await fetch(`${apiUrl}${endpoint}`, {
     method: "GET",
     headers: {

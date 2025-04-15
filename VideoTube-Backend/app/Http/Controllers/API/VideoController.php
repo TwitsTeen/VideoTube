@@ -16,14 +16,29 @@ class VideoController extends BaseController
 {
     public function index(Request $request)
     {
-        $query = $request->query('title');
+        $title = $request->query('title');
+        $sort = $request->query('sort');
         $videos = Video::query();
 
-        if ($query) {
-            $videos->where('title', 'LIKE', '%' . $query . '%');
+        if ($title) {
+            $videos->where('title', 'LIKE', '%' . $title . '%');
         }
 
-        $videos = $videos->latest()->paginate(15);
+        if ($sort) {
+            if ($sort === 'most_viewed') {
+                $videos->orderBy('view_count', 'desc');
+            }elseif ($sort === 'oldest') {
+                $videos->orderBy('created_at', 'asc');
+            } elseif ($sort === 'latest') {
+                $videos->orderBy('created_at', 'desc');
+            } elseif ($sort === 'most_liked') {
+                $videos->withCount('likes')->orderBy('likes_count', 'desc');
+            } else {
+                return $this->sendError('Invalid sort parameter.');
+            }
+        }
+
+        $videos = $videos->paginate(15);
         return $this->sendResponse([
             'videos' => VideoResource::collection($videos),
             'last_page' => $videos->lastPage(),

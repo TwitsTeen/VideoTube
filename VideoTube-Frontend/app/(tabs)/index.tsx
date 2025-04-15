@@ -2,9 +2,8 @@ import VideoComponent from "@/components/videoComponent";
 import { fetchVideos } from "@/services/fetchVideo";
 import useFetch from "@/services/useFetch";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Platform,
   Text,
   View,
   TextInput,
@@ -12,6 +11,7 @@ import {
   useWindowDimensions,
   ActivityIndicator,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { FlatList } from "react-native-gesture-handler";
 
 export default function Index() {
@@ -19,9 +19,16 @@ export default function Index() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const { width } = useWindowDimensions();
+  const [selectedSort, setSelectedSort] = useState("latest");
+  const sortOptions = [
+    { label: "Latest", value: "latest" },
+    { label: "Most Viewed", value: "most_viewed" },
+    { label: "Most Liked", value: "most_liked" },
+    { label: "Oldest", value: "oldest" },
+  ];
 
   const { data, loading, error, reset, setFetchFunction } = useFetch(async () =>
-    fetchVideos({ query: search, page })
+    fetchVideos({ query: search, page: page, sort: selectedSort })
   );
 
   useEffect(() => {
@@ -36,7 +43,9 @@ export default function Index() {
     if (page < data?.last_page) {
       const next = page + 1;
       setPage(next);
-      setFetchFunction(() => fetchVideos({ query: search, page: next }));
+      setFetchFunction(() =>
+        fetchVideos({ query: search, page: next, sort: selectedSort })
+      );
     }
   };
 
@@ -44,9 +53,17 @@ export default function Index() {
     if (page > 1) {
       const prev = page - 1;
       setPage(prev);
-      setFetchFunction(() => fetchVideos({ query: search, page: prev }));
+      setFetchFunction(() =>
+        fetchVideos({ query: search, page: prev, sort: selectedSort })
+      );
     }
   };
+
+  useEffect(() => {
+    setFetchFunction(() =>
+      fetchVideos({ query: search, page, sort: selectedSort })
+    );
+  }, [selectedSort]);
 
   return (
     <View className="flex-1 bg-primary pt-8">
@@ -63,6 +80,30 @@ export default function Index() {
             setFetchFunction(() => fetchVideos({ query: search, page: 1 }));
           }}
         />
+        <View className="flex-row justify-between items-center mb-4">
+          <Text className="text-gray-300 text-lg">Sort by:</Text>
+          <Picker
+            selectedValue={selectedSort}
+            onValueChange={(itemValue, _) => setSelectedSort(itemValue)}
+            style={{
+              color: "#d1d5db",
+              backgroundColor: "#1f2937",
+              borderWidth: 1,
+              borderColor: "#4b5563",
+              borderRadius: 8,
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+            }}
+          >
+            {sortOptions.map((option) => (
+              <Picker.Item
+                key={option.value}
+                label={option.label}
+                value={option.value}
+              />
+            ))}
+          </Picker>
+        </View>
       </View>
 
       <FlatList
@@ -81,7 +122,12 @@ export default function Index() {
         }}
         ListHeaderComponent={
           <Text className="text-gray-300 text-center text-lg mb-4">
-            {search ? `Search results for "${search}"` : "Latest Videos"}
+            {search
+              ? `Search results for "${search}"`
+              : `${
+                  selectedSort.charAt(0).toUpperCase() +
+                  selectedSort.replace(/_/g, " ").slice(1)
+                } videos`}
           </Text>
         }
         ListEmptyComponent={
