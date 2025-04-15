@@ -90,8 +90,10 @@ function Profile() {
   }
 
   return (
-    <View className="flex-1 justify-center items-center p-4">
-      <Text className="text-lg font-bold mb-2">{data?.name}'s Profile</Text>
+    <View className="flex-1 justify-center items-center p-4 bg-primary">
+      <Text className="text-lg font-bold mb-2 text-gray-300">
+        {data?.name}'s Profile
+      </Text>
 
       <TouchableOpacity onPress={handleImagePick} className="mb-4">
         <Image
@@ -106,21 +108,24 @@ function Profile() {
           style={{ width: 120, height: 120, borderRadius: 60 }}
         />
       </TouchableOpacity>
-      <Text className="mb-1">Bio:</Text>
+      <Text className="mb-1 text-gray-300">Bio:</Text>
 
       <TextInput
         placeholder="Edit your bio..."
-        className="w-full border rounded p-2 mb-4"
+        className="w-full border rounded p-2 mb-4 text-gray-300"
         value={tmpBio}
         onChangeText={setTmpBio}
       />
-      <TouchableOpacity onPress={() => handleEditProfile()} className="mb-4">
-        <Text>Edit</Text>
+      <TouchableOpacity
+        onPress={() => handleEditProfile()}
+        className="bg-accent px-4 py-2 rounded w-32 mb-4 items-center"
+      >
+        <Text className="text-white">Edit</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={logout}
-        className="bg-red-500 px-4 py-2 rounded"
+        className="bg-red-500 px-4 py-2 rounded w-32 items-center"
       >
         <Text className="text-white">Logout</Text>
       </TouchableOpacity>

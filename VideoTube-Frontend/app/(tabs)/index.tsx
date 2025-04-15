@@ -39,11 +39,11 @@ export default function Index() {
   }, [data]);
 
   return (
-    <View className="flex-1 justify-center items-center space-y-4">
+    <View className="flex-1 justify-center items-center space-y-4 bg-primary">
       <View className="w-full p-4">
         <TextInput
           placeholder="Search videos..."
-          className="border border-gray-300 rounded-md p-2 w-full mb-4"
+          className="border border-gray-300 rounded-md p-2 w-full mb-4 text-gray-300"
           value={search}
           onChangeText={setSearch}
           onSubmitEditing={() => {
@@ -63,19 +63,19 @@ export default function Index() {
         refreshing={loading}
         onRefresh={() => {}}
         ListEmptyComponent={
-          <View className="flex-1 justify-center items-center mt-4">
-            <Text>No videos found</Text>
+          <View className="flex-1 justify-center items-center mt-4 ">
+            <Text className="text-gray-300">No videos found</Text>
           </View>
         }
         ListFooterComponent={
           <View className="flex-1 justify-center items-center mt-4 mb-8">
             {loading ? <Text>Loading...</Text> : null}
             {error ? <Text>Error: {error.message}</Text> : null}
-            <View className="flex-row space-x-4 mt-4">
+            <View className="flex-row space-x-4 mt-4 ">
               <TouchableOpacity onPress={prevPage}>
                 <MaterialIcons name="arrow-left" size={64} color="#848081" />
               </TouchableOpacity>
-              <Text className="text-gray-500">
+              <Text className="text-gray-300">
                 Page {page} of {limit}
               </Text>
               <TouchableOpacity onPress={nextPage}>
@@ -85,8 +85,8 @@ export default function Index() {
           </View>
         }
         ListHeaderComponent={
-          <View className="flex-1 justify-center items-center mb-4">
-            <Text>
+          <View className="flex-1 justify-center items-center mb-4 ">
+            <Text className="text-gray-300">
               {search != "" ? `Search for ${search}` : "Latest videos"}
             </Text>
           </View>

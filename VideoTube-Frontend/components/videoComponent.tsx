@@ -12,7 +12,7 @@ function videoComponent({ video }: { video: Video }) {
   }, [video]);
   return (
     <Link href={`/video/${video.id}`}>
-      <View className="p-4 bg-white rounded-lg shadow-md w-52 m-2">
+      <View className="p-4 bg-tertiary rounded-lg shadow-md w-52 m-2">
         <Image
           source={{
             uri: `${storageUrl}/${video.thumbnail_url}`,
@@ -20,7 +20,10 @@ function videoComponent({ video }: { video: Video }) {
           className="w-full h-64 rounded-md mb-4"
           resizeMode="contain"
         />
-        <Text className="text-lg font-bold mb-2" numberOfLines={2}>
+        <Text
+          className="text-lg font-bold mb-2 text-gray-200"
+          numberOfLines={2}
+        >
           {video.title}
         </Text>
         <View className="flex-row items-center mb-2">
@@ -32,7 +35,7 @@ function videoComponent({ video }: { video: Video }) {
             }}
             style={{ width: 30, height: 30, borderRadius: 60 }}
           />
-          <Text className="text-gray-600 mb-2 mx-4" numberOfLines={2}>
+          <Text className="text-gray-300 mb-2 mx-4" numberOfLines={2}>
             {video.user_name}
           </Text>
         </View>
@@ -41,7 +44,7 @@ function videoComponent({ video }: { video: Video }) {
           <Text className="text-gray-400 text-sm">
             {new Date(video.created_at).toLocaleDateString()}
           </Text>
-          <Text className="text-gray-500 ">{video.view_count} views</Text>
+          <Text className="text-gray-400 ">{video.view_count} views</Text>
         </View>
       </View>
     </Link>

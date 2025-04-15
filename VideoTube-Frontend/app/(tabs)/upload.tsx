@@ -67,30 +67,33 @@ function upload() {
   };
   if (uploading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <Text className="text-lg font-bold mb-2">Uploading...</Text>
+      <View className="flex-1 justify-center items-center bg-primary">
+        <Text className="text-lg font-bold mb-2 text-gray-300">
+          Uploading...
+        </Text>
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
   return (
-    <View className="p-5">
-      <Text className="text-lg font-bold mb-2">Title</Text>
+    <View className="p-5 bg-primary w-full h-full">
+      <Text className="text-lg font-bold mb-2 text-gray-300">Title</Text>
       <TextInput
-        className="border border-gray-300 mb-4 p-2 rounded"
+        className="border border-gray-300 mb-4 p-2 rounded text-gray-300"
         value={title}
         onChangeText={setTitle}
         placeholder="Enter title"
       />
-      <Text className="text-lg font-bold mb-2">Description</Text>
+      <Text className="text-lg font-bold mb-2 text-gray-300">Description</Text>
       <TextInput
-        className="border border-gray-300 mb-4 p-2 rounded"
+        className="border border-gray-300 mb-4 p-2 rounded text-gray-300"
         value={description}
         onChangeText={setDescription}
         placeholder="Enter description"
         multiline
       />
       <Button title="Choose Image" onPress={handleImagePick} />
+
       {image && <Text className="mt-2 text-green-500">Image selected</Text>}
       {image ? (
         <Image
