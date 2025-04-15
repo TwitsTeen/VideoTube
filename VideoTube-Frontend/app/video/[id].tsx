@@ -16,6 +16,7 @@ import { fetchVideoById } from "@/services/fetchVideo";
 import { AuthContext } from "@/providers/AuthProvider";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { likeVideo } from "@/services/interactions";
+import CommentSection from "@/components/commentSection";
 
 const Watch = () => {
   const { id } = useLocalSearchParams();
@@ -134,6 +135,7 @@ const Watch = () => {
           <View className="h-px bg-gray-600 my-4" />
           <Text className="text-white text-sm">{video.description}</Text>
         </View>
+        <CommentSection videoId={video?.id} />
       </ScrollView>
     </>
   );

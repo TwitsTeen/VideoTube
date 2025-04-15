@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\VideoController;
 use Illuminate\Http\Request;
@@ -30,3 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::apiResource('profiles', ProfileController::class)->only(['show']);
+
+Route::get('comments/{id}', [CommentController::class, 'show'])->name('comments.show');
+Route::post('comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth:sanctum');

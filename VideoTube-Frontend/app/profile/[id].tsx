@@ -1,4 +1,5 @@
 import VideoComponent from "@/components/videoComponent";
+import { VideoDetails } from "@/interfaces/interfaces";
 import { fetchVideoByUserId } from "@/services/fetchVideo";
 import { fetchUserById } from "@/services/interactions";
 import useFetch from "@/services/useFetch";
@@ -64,7 +65,7 @@ function ProfileView() {
 
       <View className="p-4">
         <FlatList
-          data={videos}
+          data={videos as unknown as VideoDetails[]}
           renderItem={({ item }) => <VideoComponent video={item} />}
           keyExtractor={(item) => item.id.toString()}
           refreshing={loading}

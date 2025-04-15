@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Video;
@@ -17,11 +18,12 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'testUser',
+            'email' => 'testUser@mail.com',
+            'password' => bcrypt('password1234'),
         ]);
 
-        Video::factory(250)->create([
+        Comment::factory(250)->create([
              'user_id' => User::factory(),
          ]);
     }

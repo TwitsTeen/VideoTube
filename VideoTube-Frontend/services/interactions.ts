@@ -114,3 +114,44 @@ export const fetchUserById = async (id: string) => {
   const result = await response.json();
   return result.data;
 };
+
+export const fetchCommentsByVideoId = async (videoId: string) => {
+  const response = await fetch(`${apiUrl}/comments/${videoId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    console.error("Failed to fetch comments:", response.statusText);
+    return null;
+  }
+
+  const result = await response.json();
+  console.log(result);
+  return result.data;
+};
+
+export const postComment = async (
+  videoId: string,
+  token: string,
+  content: string
+) => {
+  const response = await fetch(`${apiUrl}/comments`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ video_id: videoId, content }),
+  });
+
+  if (!response.ok) {
+    console.error("Failed to post comment:", response.statusText);
+    return null;
+  }
+
+  const result = await response.json();
+  return result.data;
+};

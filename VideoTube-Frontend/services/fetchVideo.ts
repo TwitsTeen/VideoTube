@@ -1,3 +1,5 @@
+import { CommentInterface } from "@/interfaces/interfaces";
+
 const apiUrl = process.env.EXPO_PUBLIC_BASE_API_URL;
 
 export const fetchVideos = async ({
@@ -63,5 +65,5 @@ export const fetchVideoByUserId = async (id: string) => {
   }
 
   const result = await response.json();
-  return result.data.data;
+  return result.data.data as CommentInterface[];
 };
