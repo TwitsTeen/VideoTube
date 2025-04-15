@@ -112,6 +112,7 @@ function Profile() {
 
       <TextInput
         placeholder="Edit your bio..."
+        placeholderTextColor="#848081"
         className="w-full border rounded p-2 mb-4 text-gray-300"
         value={tmpBio}
         onChangeText={setTmpBio}

@@ -16,8 +16,8 @@ export default function Index() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const { data, loading, error, refetch, reset, setFetchFunction } = useFetch(
-    async () => fetchVideos({ query: search })
+  const { data, loading, error, reset, setFetchFunction } = useFetch(async () =>
+    fetchVideos({ query: search })
   );
 
   const nextPage = async () => {
@@ -43,6 +43,7 @@ export default function Index() {
       <View className="w-full p-4">
         <TextInput
           placeholder="Search videos..."
+          placeholderTextColor="#848081"
           className="border border-gray-300 rounded-md p-2 w-full mb-4 text-gray-300"
           value={search}
           onChangeText={setSearch}
