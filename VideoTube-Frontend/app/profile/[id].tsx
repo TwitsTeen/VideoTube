@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
-const baseUrl = process.env.EXPO_PUBLIC_BASE_API_URL?.split("/api")[0];
+const storageUrl = process.env.EXPO_PUBLIC_STORAGE_API_URL;
 
 function ProfileView() {
   const { id } = useLocalSearchParams();
@@ -51,8 +51,8 @@ function ProfileView() {
           <Image
             source={{
               uri: data?.profile_picture
-                ? `${baseUrl}/storage/${data?.profile_picture}`
-                : `${baseUrl}/storage/profile_pictures/placeholder.avif`,
+                ? `${storageUrl}/${data?.profile_picture}`
+                : `${storageUrl}/profile_pictures/placeholder.avif`,
             }}
             style={{ width: 120, height: 120, borderRadius: 60 }}
           />

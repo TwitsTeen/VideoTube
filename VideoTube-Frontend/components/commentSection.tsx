@@ -13,8 +13,7 @@ import {
 } from "react-native";
 import { FlatList, TextInput } from "react-native-gesture-handler";
 
-const storageUrl =
-  process.env.EXPO_PUBLIC_BASE_API_URL?.split("/api")[0] + "/storage";
+const storageUrl = process.env.EXPO_PUBLIC_STORAGE_API_URL;
 
 function CommentSection({ videoId }: { videoId: string }) {
   const { userToken } = useContext(AuthContext);

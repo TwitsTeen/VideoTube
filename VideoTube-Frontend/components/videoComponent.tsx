@@ -3,8 +3,7 @@ import { Video } from "../interfaces/interfaces";
 import { View, Text, Image } from "react-native";
 import { Link } from "expo-router";
 
-const storageUrl =
-  process.env.EXPO_PUBLIC_BASE_API_URL?.split("/api")[0] + "/storage";
+const storageUrl = process.env.EXPO_PUBLIC_STORAGE_API_URL;
 
 function VideoComponent({ video }: { video: Video }) {
   return (

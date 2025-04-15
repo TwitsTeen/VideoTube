@@ -43,6 +43,7 @@ The url for the server should be put in a .env file in the `VideoTube-Frontend` 
 
 ```
 EXPO_PUBLIC_BASE_API_URL = "http://127.0.0.1:8000/api"
+EXPO_PUBLIC_STORAGE_API_URL = "http://127.0.0.1:8000/storage"
 ```
 
 ## Technologies Used

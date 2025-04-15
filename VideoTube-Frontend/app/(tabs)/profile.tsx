@@ -16,7 +16,7 @@ import * as ImagePicker from "expo-image-picker";
 function Profile() {
   const { userToken, logout } = useContext(AuthContext);
   const [tmpBio, setTmpBio] = useState("");
-  const baseUrl = process.env.EXPO_PUBLIC_BASE_API_URL?.split("/api")[0];
+  const storageUrl = process.env.EXPO_PUBLIC_STORAGE_API_URL;
   const [image, setImage] = useState<ImagePicker.ImagePickerResult | null>(
     null
   );
@@ -102,8 +102,8 @@ function Profile() {
               image && image.assets && image.assets[0]
                 ? image.assets[0].uri
                 : data?.profile_picture
-                ? `${baseUrl}/storage/${data?.profile_picture}`
-                : `${baseUrl}/storage/profile_pictures/placeholder.avif`,
+                ? `${storageUrl}/${data?.profile_picture}`
+                : `${storageUrl}/profile_pictures/placeholder.avif`,
           }}
           style={{ width: 120, height: 120, borderRadius: 60 }}
         />
