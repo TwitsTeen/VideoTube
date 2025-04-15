@@ -45,3 +45,23 @@ export const fetchVideoById = async (id: string) => {
   console.log(result.data);
   return result.data;
 };
+
+export const fetchVideoByUserId = async (id: string) => {
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+  console.log("Fetching videos for user ID:", id);
+
+  const response = await fetch(`${apiUrl}/videos/user/${id}`, {
+    method: "GET",
+    headers,
+  });
+
+  if (!response.ok) {
+    // @ts-ignore
+    throw new Error(response.message || "Failed to fetch video");
+  }
+
+  const result = await response.json();
+  return result.data.data;
+};

@@ -97,3 +97,20 @@ export const editProfile = async (
   const result = await response.json();
   return result.data;
 };
+
+export const fetchUserById = async (id: string) => {
+  const response = await fetch(`${apiUrl}/profiles/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    console.error("Failed to fetch user:", response.statusText);
+    return null;
+  }
+
+  const result = await response.json();
+  return result.data;
+};

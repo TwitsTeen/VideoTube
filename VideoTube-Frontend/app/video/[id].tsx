@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 import { Video, ResizeMode } from "expo-av";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { VideoDetails as VideoType } from "@/interfaces/interfaces";
 import useFetch from "@/services/useFetch";
 import { fetchVideoById } from "@/services/fetchVideo";
@@ -102,19 +102,21 @@ const Watch = () => {
 
         <View className="p-4">
           <Text className="text-white text-lg font-bold">{video.title}</Text>
-          <View className="flex-row items-center mt-2">
-            <Image
-              source={{
-                uri: video.user_profile_picture
-                  ? `${baseUrl}/storage/${video?.user_profile_picture}`
-                  : `${baseUrl}/storage/profile_pictures/placeholder.avif`,
-              }}
-              style={{ width: 50, height: 50, borderRadius: 60 }}
-            />
-            <Text className="text-gray-400 text-md mx-4">
-              {video.user_name}
-            </Text>
-          </View>
+          <Link href={`/profile/${video.user_id}`}>
+            <View className="flex-row items-center mt-2">
+              <Image
+                source={{
+                  uri: video.user_profile_picture
+                    ? `${baseUrl}/storage/${video?.user_profile_picture}`
+                    : `${baseUrl}/storage/profile_pictures/placeholder.avif`,
+                }}
+                style={{ width: 50, height: 50, borderRadius: 60 }}
+              />
+              <Text className="text-gray-400 text-md mx-4">
+                {video.user_name}
+              </Text>
+            </View>
+          </Link>
           <View className="flex-row items-center mt-2 gap-2 ">
             <Text className="text-gray-400">{video.likes_count}</Text>
             {userToken ? (

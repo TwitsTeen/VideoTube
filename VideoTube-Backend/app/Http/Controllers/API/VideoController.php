@@ -122,4 +122,10 @@ class VideoController extends BaseController
 
         return $this->sendResponse([], 'Video liked successfully.');
     }
+
+    public function VideosByUser(Request $request, int $id)
+    {
+        $videos = Video::where('user_id', $id)->latest()->get();
+        return $this->sendResponse(['data' => VideoResource::collection($videos)], 'Videos retrieved successfully.');
+    }
 }

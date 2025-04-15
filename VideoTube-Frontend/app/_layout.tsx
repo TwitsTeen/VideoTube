@@ -21,6 +21,13 @@ export default function RootLayout() {
               headerShown: false,
             }}
           />
+
+          <Stack.Screen
+            name="profile/[id]"
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack>
       </AuthProvider>
     </GestureHandlerRootView>

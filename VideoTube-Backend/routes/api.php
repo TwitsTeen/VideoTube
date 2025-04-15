@@ -17,6 +17,7 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 Route::apiResource('videos', VideoController::class)->only(['index', 'show']);
+Route::get('videos/user/{id}', [VideoController::class, 'VideosByUser'])->name('videos.user');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('like/{video}', [VideoController::class, 'like'])->name('videos.like');
