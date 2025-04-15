@@ -6,14 +6,13 @@ VideoTube is a personal project aimed at creating a video-sharing platform where
 
 - User authentication.
 - Video upload, playback, and streaming.
-- View count, Likes.
+- View count, likes, comments.
 - Profile management and channels.
 - Search videos.
 - Responsive design for desktop and mobile devices.
 
 ## Yet to be implemented
 
-- Comments
 - Subscriptions
 
 ## Installation

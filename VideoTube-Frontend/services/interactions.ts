@@ -129,7 +129,6 @@ export const fetchCommentsByVideoId = async (videoId: string) => {
   }
 
   const result = await response.json();
-  console.log(result);
   return result.data;
 };
 

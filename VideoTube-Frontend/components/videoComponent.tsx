@@ -7,10 +7,6 @@ const storageUrl =
   process.env.EXPO_PUBLIC_BASE_API_URL?.split("/api")[0] + "/storage";
 
 function VideoComponent({ video }: { video: Video }) {
-  useEffect(() => {
-    console.log("Video component mounted:", video);
-  }, [video]);
-
   return (
     <Link href={`/video/${video.id}`}>
       <View

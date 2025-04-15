@@ -44,7 +44,6 @@ export const fetchVideoById = async (id: string) => {
   }
 
   const result = await response.json();
-  console.log(result.data);
   return result.data;
 };
 
