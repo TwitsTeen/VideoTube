@@ -1,5 +1,4 @@
 import VideoComponent from "@/components/videoComponent";
-import videoComponent from "@/components/videoComponent";
 import { fetchVideoByUserId } from "@/services/fetchVideo";
 import { fetchUserById } from "@/services/interactions";
 import useFetch from "@/services/useFetch";
