@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import { useLocalSearchParams } from "expo-router";
@@ -27,11 +28,10 @@ const Watch = () => {
     loading,
     refetch,
   } = useFetch<VideoType>(async () => fetchVideoById(id as string));
+  const baseUrl = process.env.EXPO_PUBLIC_BASE_API_URL?.split("/api")[0];
 
   useEffect(() => {
     if (video && video.video_url) {
-      const baseUrl = process.env.EXPO_PUBLIC_BASE_API_URL?.split("/api")[0];
-
       if (!baseUrl) {
         setError("Base URL is not defined in environment variables.");
         return;
@@ -102,7 +102,19 @@ const Watch = () => {
 
         <View className="p-4">
           <Text className="text-white text-lg font-bold">{video.title}</Text>
-          <Text className="text-gray-400 text-sm">{video.user_name}</Text>
+          <View className="flex-row items-center mt-2">
+            <Image
+              source={{
+                uri: video.user_profile_picture
+                  ? `${baseUrl}/storage/${video?.user_profile_picture}`
+                  : `${baseUrl}/storage/profile_pictures/placeholder.avif`,
+              }}
+              style={{ width: 50, height: 50, borderRadius: 60 }}
+            />
+            <Text className="text-gray-400 text-md mx-4">
+              {video.user_name}
+            </Text>
+          </View>
           <View className="flex-row items-center mt-2 gap-2 ">
             <Text className="text-gray-400">{video.likes_count}</Text>
             {userToken ? (

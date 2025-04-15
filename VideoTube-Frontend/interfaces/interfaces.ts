@@ -5,6 +5,7 @@ export interface Video {
   thumbnail_url: string;
   user_id: string;
   user_name: string;
+  user_profile_picture: string;
   created_at: Date;
 }
 
@@ -17,6 +18,7 @@ export interface VideoDetails {
   video_url: string;
   user_id: string;
   user_name: string;
+  user_profile_picture: string;
   likes_count: number;
   created_at: Date;
 }

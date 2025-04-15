@@ -23,6 +23,7 @@ class VideoResource extends JsonResource
             'view_count' => $this->view_count,
             'user_id' => $this->user_id,
             'user_name' => User::where('id', $this->user_id)->value('name'),
+            'user_profile_picture' => User::where('id', $this->user_id)->value('profile_picture'),
             'created_at' => $this->created_at,
         ];
     }
