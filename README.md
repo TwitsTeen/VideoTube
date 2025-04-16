@@ -32,7 +32,7 @@ VideoTube is a personal project aimed at creating a video-sharing platform where
    ```bash
    composer install
    php artisan key:generate
-   php artisan migrate:fresh [--seed] # Optional: use --seed to create demo videos and users
+   php artisan migrate [--seed] # Optional: use --seed to create demo videos and users
    php artisan storage:link
    php artisan serve
    ```
