@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   login as apiLogin,
   register as apiRegister,
+  me,
 } from "../services/auth/api";
 
 interface AuthContextType {
@@ -35,7 +36,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const loadToken = async () => {
     const token = await AsyncStorage.getItem("token");
-    if (token) setUserToken(token);
+    if (token) {
+      const isValid = await checkTokenValidity(token);
+      if (!isValid) {
+        console.log("Token is invalid, removing from storage");
+        await AsyncStorage.removeItem("token");
+        setUserToken(null);
+        return;
+      }
+      setUserToken(token);
+    }
+  };
+
+  const checkTokenValidity = async (token: string) => {
+    const res = await me(token);
+    return res.success;
   };
 
   useEffect(() => {

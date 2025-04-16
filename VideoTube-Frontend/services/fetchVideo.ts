@@ -20,13 +20,12 @@ export const fetchVideos = async ({
       "Content-Type": "application/json",
     },
   });
-
   if (!response.ok) {
     // @ts-ignore
     throw new Error(response.message || "Failed to fetch videos");
   }
-  const result = await response.json();
 
+  const result = await response.json();
   return result.data;
 };
 

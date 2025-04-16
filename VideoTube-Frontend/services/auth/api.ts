@@ -57,10 +57,8 @@ export const register = async (
   }
 };
 
-const me = async () => {
+export const me = async (token: string) => {
   try {
-    const token = await AsyncStorage.getItem("token");
-
     if (!token) {
       return { success: false, message: "No token found" };
     }

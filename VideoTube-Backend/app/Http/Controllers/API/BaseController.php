@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
+use Illuminate\Support\Facades\Log;
 
 class BaseController extends Controller
 {
@@ -19,6 +20,7 @@ class BaseController extends Controller
             'data'    => $result,
             'message' => $message,
         ];
+        Log::info('response', $response);
 
         return response()->json($response, 200);
     }

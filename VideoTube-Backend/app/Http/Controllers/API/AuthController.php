@@ -68,11 +68,8 @@ class AuthController extends BaseController
     {
         $user = Auth::user();
 
-        if ($user) {
-            return $this->sendResponse($user, 'User profile info.');
-        } else {
-            return $this->sendError('Unauthorised.', ['error' => 'Unauthorised']);
-        }
+        return $this->sendResponse($user, 'User profile info.');
+
     }
 
 }
